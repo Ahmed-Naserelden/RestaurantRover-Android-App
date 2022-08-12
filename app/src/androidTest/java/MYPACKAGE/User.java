@@ -2,29 +2,23 @@ package MYPACKAGE;
 
 public class User {
 
-    private String name, email, password;
+    private String name, email;
     private Cart cart;
+    private FavouriteProducts favouriteProducts;
 
     public User(){}
-    public User(String name, String email, String password, Cart cart) {
+    public User(String name, String email, Cart cart, FavouriteProducts favouriteProducts) {
         this.name = name;
         this.email = email;
-        this.password = password;
         this.cart = cart;
+        this.favouriteProducts = favouriteProducts;
     }
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+
     public String getName() {
         return name;
     }
     public String getEmail() {
         return email;
-    }
-    public String getPassword() {
-        return password;
     }
     public void setName(String name) {
         this.name = name;
@@ -32,7 +26,16 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    public void setPassword(String password) {
-        this.password = password;
+    public Cart getCart() {
+        return cart;
+    }
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+    public FavouriteProducts getFavouriteProducts() {
+        return favouriteProducts;
+    }
+    public void setFavouriteProducts(FavouriteProducts favouriteProducts) {
+        this.favouriteProducts = favouriteProducts;
     }
 }
