@@ -1,6 +1,5 @@
-package MYPACKAGE;
+package com.example.restaurantmobileapp;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Cart {
