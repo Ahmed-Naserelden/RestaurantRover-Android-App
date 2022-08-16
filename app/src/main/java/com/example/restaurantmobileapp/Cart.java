@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Cart {
-    private List<Order> orders = (List<Order>) new ArrayList<Order>();
-
+    private List<Order> orders;
+    public Cart(){
+        orders = (List<Order>) new ArrayList<Order>();
+    }
     public List<Order> getOrders() {
         return orders;
     }
@@ -22,6 +24,7 @@ public class Cart {
     public void canOrder(@NonNull Order order){
         order.setOrderStatus("Cancled");
     }
+
     public void deleteOrder(@NonNull Order order){
         // deleting
     }

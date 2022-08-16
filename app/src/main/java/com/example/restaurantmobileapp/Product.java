@@ -1,8 +1,24 @@
 package com.example.restaurantmobileapp;
 
+import java.util.HashMap;
+
 public class Product {
     private String name, type, detail;
+    private String Id;
     private float price;
+    Product(){
+        name = "";
+        type = "";
+        detail = "";
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public String getName() {
         return name;
@@ -28,4 +44,7 @@ public class Product {
     public void setPrice(float price) {
         this.price = price;
     }
+
+
+
 }

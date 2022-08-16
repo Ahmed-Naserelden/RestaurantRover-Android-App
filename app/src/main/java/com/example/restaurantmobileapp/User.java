@@ -5,7 +5,9 @@ public class User {
     private Cart cart; //
     private FavouriteProducts favouriteProducts;
 
-    public User(){}
+    public User(){
+
+    }
     public User(String name, String email, Cart cart, FavouriteProducts favouriteProducts) {
         this.name = name;
         this.email = email;
