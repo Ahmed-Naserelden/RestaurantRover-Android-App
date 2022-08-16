@@ -1,34 +1,30 @@
 package com.example.restaurantmobileapp;
 
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Cart {
-    HashMap<Product, Integer> orders;
-    private double totalPrice;
-    public Cart(){
-        totalPrice = 0.0f;
-    }
-    public HashMap<Product, Integer> getOrders() {
+    private List<Order> orders = (List<Order>) new ArrayList<Order>();
+
+    public List<Order> getOrders() {
         return orders;
     }
-    public void setOrders(HashMap<Product, Integer> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+
+    public void addOrder(Order order){
+        orders.add(order);
     }
-    public double getTotalPrice() {
-        return totalPrice;
+    public void canOrder(@NonNull Order order){
+        order.setOrderStatus("Cancled");
     }
-    public void addProduct(Product product){
-        orders.merge(product, 1, Integer::sum);
-        totalPrice += product.getPrice();
+    public void deleteOrder(@NonNull Order order){
+        // deleting
     }
-    public void decrementProduct(Product product){
-        int count = orders.containsKey(product) ? orders.get(product) : 0;
-        if(count > 0) {
-            orders.merge(product, -1, Integer::sum);
-            totalPrice -= product.getPrice();
-        }
-    }
+
+
 }

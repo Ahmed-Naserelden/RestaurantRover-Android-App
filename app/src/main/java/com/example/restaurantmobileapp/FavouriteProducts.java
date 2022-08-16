@@ -5,6 +5,9 @@ public class FavouriteProducts {
     // favourite
     private List<Product> favouriteProduct = (List<Product>) new ArrayList<Product>();
 
+    public void setFavouriteProduct(List<Product> favouriteProduct) {
+        this.favouriteProduct = favouriteProduct;
+    }
     public List<Product> getFavouriteProducts() {
         return favouriteProduct;
     }
@@ -12,7 +15,6 @@ public class FavouriteProducts {
     public void addFavouriteProduct(Product product){
         favouriteProduct.add(product);
     }
-
     public void removeFavouriteProduct(Product product){
         favouriteProduct.add(product);
     }
