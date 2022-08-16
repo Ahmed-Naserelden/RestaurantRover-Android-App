@@ -1,9 +1,8 @@
-package MYPACKAGE;
+package com.example.restaurantmobileapp;
 
 public class User {
-
     private String name, email;
-    private Cart cart;
+    private Cart cart; //
     private FavouriteProducts favouriteProducts;
 
     public User(){}
@@ -33,9 +32,21 @@ public class User {
         this.cart = cart;
     }
     public FavouriteProducts getFavouriteProducts() {
-        return favouriteProducts;
+        return this.favouriteProducts;
     }
     public void setFavouriteProducts(FavouriteProducts favouriteProducts) {
         this.favouriteProducts = favouriteProducts;
+    }
+
+    public void addOrder(Order order){
+        this.cart.addOrder(order);
+    }
+    public void canOrder(Order order){this.cart.canOrder(order);}
+
+    public void addFavouriteProduct(Product product){
+        this.favouriteProducts.addFavouriteProduct(product);
+    }
+    public void removeFavouriteProduct(Product product){
+        this.favouriteProducts.removeFavouriteProduct(product);
     }
 }

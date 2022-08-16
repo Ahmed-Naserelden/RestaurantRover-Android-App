@@ -1,4 +1,4 @@
-package MYPACKAGE;
+package com.example.restaurantmobileapp;
 
 public class Product {
     private String name, type, detail;
