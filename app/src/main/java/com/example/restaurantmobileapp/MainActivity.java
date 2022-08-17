@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void save(){
+    public void save(View view){
 //        FirebaseDatabase fir = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = fir.getReference();
 //
@@ -65,9 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         DBModule db = new DBModule();
+        db.RemoveFavoriteProduct(p3, user, this);
+
 //        db.addUser(user, this);
-        db.changeStateOrder(order1, user, "cancled",MainActivity.this);
-        db.changeStateOrder(order2, user, "finished",MainActivity.this);
+//        db.changeStateOrder(order1, user, "cancled",MainActivity.this);
+//        db.changeStateOrder(order2, user, "finished",MainActivity.this);
 
 //        dbref.child("Users").child(phone).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                    @Override

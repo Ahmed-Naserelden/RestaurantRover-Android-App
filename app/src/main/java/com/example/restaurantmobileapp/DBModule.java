@@ -63,7 +63,7 @@ public class DBModule {
     }
 
     // this order will be send to firebase
-    public void addOrder(Order order, @NonNull User user, Context context){
+    public void addOrder(@NonNull Order order, @NonNull User user, Context context){
         user.addOrder(order);
         dbRef.child("Users").child(user.getPhone()).child("cart").setValue(user.getCart()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -108,9 +108,45 @@ public class DBModule {
         });
     }
 
+    public void addFavoriteProduct(@NonNull Product product, @NonNull User user, Context context){
+        user.addFavouriteProduct(product);
+        dbRef.child("Users").child(user.getPhone()).child("favouriteProducts").setValue(user.getFavouriteProducts()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context, "Success to add FavoriteProduct", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Failure to add FavoriteProduct", Toast.LENGTH_SHORT).show();
 
+            }
+        }).addOnCanceledListener(new OnCanceledListener() {
+            @Override
+            public void onCanceled() {
+                Toast.makeText(context, "Canceled to add FavoriteProduct", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-
-
+    public void RemoveFavoriteProduct(@NonNull Product product, @NonNull User user, Context context){
+        user.removeFavouriteProduct(product);
+        dbRef.child("Users").child(user.getPhone()).child("favouriteProducts").setValue(user.getFavouriteProducts()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context, "Success to Remove FavoriteProduct", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Failure to Remove FavoriteProduct", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnCanceledListener(new OnCanceledListener() {
+            @Override
+            public void onCanceled() {
+                Toast.makeText(context, "Canceled to Remove FavoriteProduct", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 }
