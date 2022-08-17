@@ -8,7 +8,16 @@ public class User {
     public User(){
     }
 
-    public User(String name, String email, String phone,Cart cart, FavouriteProducts favouriteProducts) {
+    public User(String name, String email, String phone, String password) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        cart = new Cart();
+        favouriteProducts =  new FavouriteProducts();
+    }
+
+    public User(String name, String email, String phone, Cart cart, FavouriteProducts favouriteProducts) {
         this.name = name;
         this.email = email;
         this.phone = phone;

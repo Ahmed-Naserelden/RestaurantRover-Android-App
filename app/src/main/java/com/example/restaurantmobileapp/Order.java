@@ -1,5 +1,7 @@
 package com.example.restaurantmobileapp;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.ArrayList;
@@ -11,10 +13,12 @@ public class Order{
     private HashMap<String, Integer> products;
     private String orderStatus;
     private double totalPrice;
+    private int orderID;
     public Order(){
         products = new HashMap<>();
         totalPrice = 0.0f;
         orderStatus = "Waiting";
+        orderID = -1;
     }
 
 //    @Exclude
@@ -37,20 +41,23 @@ public class Order{
         this.totalPrice = totalPrice;
     }
 
-
-
-
-// **********************************************************************************
+    public int getOrderID() {
+        return orderID;
+    }
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
+    }
+    // **********************************************************************************
 
 //    @Exclude
-    public void addProduct(Product product){
+    public void addProduct(@NonNull Product product){
 //        orders.merge(product, 1, Integer::sum);
         int count = products.containsKey(product.getId()) ? products.get(product.getId()) : 0;
         products.put(product.getId(), count + 1);
         totalPrice += product.getPrice();
     }
 //    @Exclude
-    public void decrementProduct(Product product){
+    public void decrementProduct(@NonNull Product product){
         int count = products.containsKey(product.getId()) ? products.get(product.getId()) : 0;
         if(count > 0) {
 //          orders.merge(product, -1, Integer::sum);
