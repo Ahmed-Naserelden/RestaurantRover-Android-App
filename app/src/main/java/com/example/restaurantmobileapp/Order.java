@@ -45,13 +45,13 @@ public class Order{
 //    @Exclude
     public void addProduct(Product product){
 //        orders.merge(product, 1, Integer::sum);
-        int count = products.containsKey(product.getId()) ? products.get(product) : 0;
+        int count = products.containsKey(product.getId()) ? products.get(product.getId()) : 0;
         products.put(product.getId(), count + 1);
         totalPrice += product.getPrice();
     }
 //    @Exclude
     public void decrementProduct(Product product){
-        int count = products.containsKey(product.getId()) ? products.get(product) : 0;
+        int count = products.containsKey(product.getId()) ? products.get(product.getId()) : 0;
         if(count > 0) {
 //          orders.merge(product, -1, Integer::sum);
             products.put(product.getId(), count -1);

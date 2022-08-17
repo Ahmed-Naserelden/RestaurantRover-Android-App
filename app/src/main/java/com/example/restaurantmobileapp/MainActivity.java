@@ -27,20 +27,35 @@ public class MainActivity extends AppCompatActivity {
         save();
     }
     public void save(){
-        FirebaseDatabase fir = FirebaseDatabase.getInstance();
-        DatabaseReference ref = fir.getReference("Restaurant");
+//        FirebaseDatabase fir = FirebaseDatabase.getInstance();
+//        DatabaseReference ref = fir.getReference();
+//
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Restaurant");
 
 //        DocumentReference mdoc = FirebaseFirestore.getInstance().document("Restaurant/Users");
-        Product p = new Product();
-        p.setName("rich");
-        p.setDetail("slat");
-        p.setType("food");
-        p.setId("foo");
-        p.setPrice(15.3f);
-        Order order = new Order();
-        order.addProduct(p);
+        Product p1 = new Product("fish", "sea food", "salt", 18.9f);
+        Product p2 = new Product("milk", "drinks", "safe", 2.9f);
+        Product p3 = new Product("rise", "food", "spice", 5.9f);
+        Product p4 = new Product("water", "drinks", "good", 1.9f);
 
-        ref.child("Users").push().setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+        Order order = new Order();
+        order.addProduct(p1);order.addProduct(p2);order.addProduct(p3);order.addProduct(p4);
+        Cart cart = new Cart();
+        cart.addOrder(order);
+        cart.addOrder(order);
+        cart.addOrder(order);
+        FavouriteProducts favouriteProducts = new FavouriteProducts();
+        favouriteProducts.addFavouriteProduct(p1);
+        favouriteProducts.addFavouriteProduct(p2);
+
+        String NAME = "Ahmed Amer";
+        String EMAIL = "ahmed@gmail.com";
+        String phone = "01099401398";
+
+        User user = new User(NAME, EMAIL, phone, cart, favouriteProducts);
+        user.setPassword("veryStrong");
+        dbref.child("Users").child(phone).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();

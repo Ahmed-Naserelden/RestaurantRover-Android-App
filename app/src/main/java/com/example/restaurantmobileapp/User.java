@@ -4,15 +4,32 @@ public class User {
     private String name, email;
     private Cart cart; //
     private FavouriteProducts favouriteProducts;
-
+    private String phone, password;
     public User(){
-
     }
-    public User(String name, String email, Cart cart, FavouriteProducts favouriteProducts) {
+
+    public User(String name, String email, String phone,Cart cart, FavouriteProducts favouriteProducts) {
         this.name = name;
         this.email = email;
+        this.phone = phone;
         this.cart = cart;
         this.favouriteProducts = favouriteProducts;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPhone() {
+        return phone;
+    }
+
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getName() {
