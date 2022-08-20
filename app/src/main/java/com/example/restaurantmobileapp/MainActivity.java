@@ -1,10 +1,17 @@
 package com.example.restaurantmobileapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCanceledListener;
@@ -15,17 +22,60 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.lang.annotation.Documented;
 import java.security.ProtectionDomain;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    Uri path;
+    final static int CHOOSE_IMAGE = 1;
+    EditText editText;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.button).setOnClickListener(this);
+        findViewById(R.id.loginBtn).setOnClickListener(this);
+
     }
 
+    public void test(View view){
+        editText = (EditText) findViewById(R.id.editTextTextPersonName);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }
+        );
+    }
+
+    @Override
+    protected void onActivityResult(int req, int res, @Nullable Intent intent) {
+        super.onActivityResult(req, res, intent);
+        if(req == CHOOSE_IMAGE && req == RESULT_OK && intent != null && intent.getData() != null){
+            path = intent.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private  void showImages(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Selet Image"), CHOOSE_IMAGE);
+    }
 
     public void save(View view){
 //        FirebaseDatabase fir = FirebaseDatabase.getInstance();
@@ -60,34 +110,20 @@ public class MainActivity extends AppCompatActivity {
 
         User user = new User(NAME, EMAIL, phone, cart, favouriteProducts);
         user.setPassword("veryStrong");
-
-//        order1.setOrderStatus("Finished");
-
-
         DBModule db = new DBModule();
         db.RemoveFavoriteProduct(p3, user, this);
 
-//        db.addUser(user, this);
-//        db.changeStateOrder(order1, user, "cancled",MainActivity.this);
-//        db.changeStateOrder(order2, user, "finished",MainActivity.this);
+    }
 
-//        dbref.child("Users").child(phone).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                }).addOnCanceledListener(new OnCanceledListener() {
-//            @Override
-//            public void onCanceled() {
-//                Toast.makeText(MainActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.button:
+                startActivity(new Intent(this, SignUp.class));
+                break;
+            case R.id.loginBtn:
+                startActivity(new Intent(this, SignIn.class));
+                break;
+        }
     }
 }
