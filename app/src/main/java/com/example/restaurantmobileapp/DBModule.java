@@ -42,7 +42,7 @@ public class DBModule {
 
     // this user will be send to firebase
     public void addUser(@NonNull User user, Context context){
-        dbRef.child("Users").child(user.getPhone()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+        dbRef.child("Users").child(user.getUserId()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(context, "Success add user", Toast.LENGTH_SHORT).show();

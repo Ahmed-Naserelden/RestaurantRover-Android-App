@@ -10,6 +10,7 @@ public class Product {
         name = "";
         type = "";
         detail = "";
+        price = 0.0f;
     }
 
     public Product(String name, String type, String detail, float price) {

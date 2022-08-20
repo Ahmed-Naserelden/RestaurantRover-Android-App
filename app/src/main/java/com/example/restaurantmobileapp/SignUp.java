@@ -34,7 +34,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
     private void registration(){
         email = Email.getText().toString().trim();
         password = Password.getText().toString().trim();
-
         if(email.isEmpty()){
             Email.setError("Email is nor correct");
             Email.requestFocus();
@@ -48,6 +47,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
+                            new DBModule().addUser(new User(task.getResult().getUser().getUid()), SignUp.this);
                             finish();
                         }else{
                             if(task.getException() instanceof FirebaseAuthUserCollisionException){
@@ -55,7 +55,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                             }else{
                                 Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
-
                             // Toast.makeText(SignUp.this, "not complete Registration", Toast.LENGTH_SHORT).show();
                         }
                     }

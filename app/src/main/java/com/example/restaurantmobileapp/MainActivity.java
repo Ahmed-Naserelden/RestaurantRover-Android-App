@@ -33,11 +33,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     final static int CHOOSE_IMAGE = 1;
     EditText editText;
     ImageView imageView;
+    Intent outIntent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//        goToLogin();
         findViewById(R.id.button).setOnClickListener(this);
         findViewById(R.id.loginBtn).setOnClickListener(this);
 
@@ -125,5 +126,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, SignIn.class));
                 break;
         }
+    }
+
+    private void goToLogin(){
+        outIntent = new Intent(this, SignIn.class);
+        //outIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(outIntent);
+
     }
 }

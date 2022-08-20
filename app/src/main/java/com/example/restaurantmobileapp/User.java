@@ -5,16 +5,23 @@ public class User {
     private Cart cart; //
     private FavouriteProducts favouriteProducts;
     private String phone, password;
+    private String userId;
     public User(){
+        this.cart = new Cart();
+        this.favouriteProducts =  new FavouriteProducts();
     }
-
+    public User(String userId){
+        this.userId = userId;
+        this.cart = new Cart();
+        this.favouriteProducts =  new FavouriteProducts();
+    }
     public User(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        cart = new Cart();
-        favouriteProducts =  new FavouriteProducts();
+        this.cart = new Cart();
+        this.favouriteProducts =  new FavouriteProducts();
     }
 
     public User(String name, String email, String phone, Cart cart, FavouriteProducts favouriteProducts) {
@@ -24,23 +31,18 @@ public class User {
         this.cart = cart;
         this.favouriteProducts = favouriteProducts;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
     public String getPhone() {
         return phone;
     }
-
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
     public String getName() {
         return name;
     }
@@ -59,18 +61,22 @@ public class User {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     public FavouriteProducts getFavouriteProducts() {
         return this.favouriteProducts;
     }
     public void setFavouriteProducts(FavouriteProducts favouriteProducts) {
         this.favouriteProducts = favouriteProducts;
     }
-
     public void addOrder(Order order){
         this.cart.addOrder(order);
     }
     public void canOrder(Order order){this.cart.canOrder(order);}
-
     public void addFavouriteProduct(Product product){
         this.favouriteProducts.addFavouriteProduct(product);
     }
