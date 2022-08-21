@@ -36,6 +36,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    DBModule db;
     final static int CHOOSE_IMAGE = 1;
     EditText editText;
     ImageView imageView;
@@ -47,15 +48,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db = new DBModule();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 //        goToLogin();
         findViewById(R.id.button).setOnClickListener(this);
         findViewById(R.id.loginBtn).setOnClickListener(this);
+//        findViewById(R.id.button5).setOnClickListener(this);
         newWork();
 
     }
-// ***************************IMAGES*********************************
+// *******************************IMAGES*********************************
     private void newWork(){
         imageView = findViewById(R.id.imageView);
         imageView.setOnClickListener(
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
-            uploadPicture();
+            db.uploadPicture("user/","ahmed",imageUri, this);
         }
     }
     private void uploadPicture() {
@@ -102,18 +105,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(MainActivity.this, "Upload Failure", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progressPercent = (100.0*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                        pd.setMessage("Percentage : " + (int) progressPercent + "%");
-                        if((int) progressPercent == 100){
-                            pd.dismiss();
-                        }
-                    }
-                });
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double progressPercent = (100.0*snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                pd.setMessage("Percentage : " + (int) progressPercent + "%");
+                if((int) progressPercent == 100){
+                    pd.dismiss();
+                }
+            }
+        });
     }
 //************************************************************************
-
 //    @Override
 //    protected void onActivityResult(int req, int res, @Nullable Intent intent) {
 //        super.onActivityResult(req, res, intent);

@@ -46,12 +46,21 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        String email = task.getResult().getUser().getUid();
+                        String key = task.getResult().getUser().getUid();
                         if(task.isSuccessful()){
-                            Toast.makeText(SignIn.this, String.format("Successes , %s", email), Toast.LENGTH_SHORT).show();
-                           Intent intent = new Intent(SignIn.this, SignUp.class);
-                           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                           startActivity(intent);
+                           // Toast.makeText(SignIn.this, String.format("Successes , %s", key), Toast.LENGTH_SHORT).show();
+                           Intent nIntent;
+                            Toast.makeText(SignIn.this, "email\\ "+email + " pass\\"+password, Toast.LENGTH_SHORT).show();
+
+                            if (email.equals("admin@gmail.com") && password.equals("admin12")){
+                               nIntent = new Intent(SignIn.this, AdminPage.class);
+                           }else {
+                               nIntent = new Intent(SignIn.this, SignUp.class);
+                           }
+                            //intent = new Intent(SignIn.this, AdminPage.class);
+                            nIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(nIntent);
+
                         }else{
                             Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
