@@ -6,11 +6,13 @@ public class Product {
     private String name, type, detail;
     private String Id;
     private float price;
+    private String imgPath;
     Product(){
         name = "";
         type = "";
         detail = "";
         price = 0.0f;
+        imgPath = "";
     }
 
     public Product(String name, String type, String detail, float price) {
@@ -19,6 +21,7 @@ public class Product {
         this.detail = detail;
         this.price = price;
         this.Id = name;
+        imgPath = "";
     }
 
     public String getId() {
@@ -53,5 +56,11 @@ public class Product {
     }
     public void setPrice(float price) {
         this.price = price;
+    }
+    public String getImgPath() {
+        return imgPath;
+    }
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }
