@@ -85,16 +85,16 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(mAuth.getCurrentUser() != null){
-            finish();
-            Toast.makeText(this, mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, Home.class));
-        }
-    }
+// ON Start
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if(mAuth.getCurrentUser() != null){
+//            finish();
+//            Toast.makeText(this, mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(this, Home.class));
+//        }
+//    }
 
 
 }

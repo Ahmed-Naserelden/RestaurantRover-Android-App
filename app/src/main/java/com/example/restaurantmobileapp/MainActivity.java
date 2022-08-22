@@ -35,10 +35,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
     DBModule db;
-    final static int CHOOSE_IMAGE = 1;
-    EditText editText;
     ImageView imageView;
     Intent outIntent;
     Uri imageUri;

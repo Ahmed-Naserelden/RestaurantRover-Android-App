@@ -5,13 +5,11 @@ public class User {
     private Cart cart; //
     private FavouriteProducts favouriteProducts;
     private String phone, password;
-    private String userId;
     public User(){
         this.cart = new Cart();
         this.favouriteProducts =  new FavouriteProducts();
     }
     public User(String userId){
-        this.userId = userId;
         this.cart = new Cart();
         this.favouriteProducts =  new FavouriteProducts();
     }
@@ -60,12 +58,6 @@ public class User {
     }
     public void setCart(Cart cart) {
         this.cart = cart;
-    }
-    public String getUserId() {
-        return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
     public FavouriteProducts getFavouriteProducts() {
         return this.favouriteProducts;

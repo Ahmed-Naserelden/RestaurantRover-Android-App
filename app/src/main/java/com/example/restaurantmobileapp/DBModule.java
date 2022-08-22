@@ -43,7 +43,7 @@ public class DBModule {
 
     // this product will be send to firebase
     public void addProduct(@NonNull Product product , Context context){
-        dbRef.child("Products").child(product.getId()).setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
+        dbRef.child("Products").child(product.getType()).child(product.getId()).setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(context, "Success add product", Toast.LENGTH_SHORT).show();
@@ -62,10 +62,9 @@ public class DBModule {
             }
         });
     }
-
     // this user will be send to firebase
     public void addUser(@NonNull User user, Context context){
-        dbRef.child("Users").child(user.getUserId()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+        dbRef.child("Users").child(mAuth.getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(context, "Success add user", Toast.LENGTH_SHORT).show();
@@ -80,7 +79,6 @@ public class DBModule {
             @Override
             public void onCanceled() {
                 Toast.makeText(context, "Canceled add user", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -120,13 +118,11 @@ public class DBModule {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(context, "Failure changeS tateOrder", Toast.LENGTH_SHORT).show();
-
             }
         }).addOnCanceledListener(new OnCanceledListener() {
             @Override
             public void onCanceled() {
                 Toast.makeText(context, "Canceled change StateOrder", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -142,7 +138,6 @@ public class DBModule {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(context, "Failure to add FavoriteProduct", Toast.LENGTH_SHORT).show();
-
             }
         }).addOnCanceledListener(new OnCanceledListener() {
             @Override
@@ -177,7 +172,7 @@ public class DBModule {
         pd.setTitle("Uploading Image ...");
         pd.show();
         final String randomKey = UUID.randomUUID().toString();
-        storageReference.child("images/"+path+ name).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        storageReference.child(path + name).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // Snackbar.make(findViewById(android.R.id.content), "image Uploaded", Snackbar.LENGTH_LONG).show();
@@ -233,5 +228,4 @@ public class DBModule {
     public boolean getCurrentUser(){
         return false;
     }
-
 }

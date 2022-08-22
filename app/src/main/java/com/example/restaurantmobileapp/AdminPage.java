@@ -57,7 +57,9 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
                     product = new Product(name, type, detail, Float.parseFloat(price));
                     // Toast.makeText(this, name + " " + type + " " + price + " " + detail, Toast.LENGTH_SHORT).show();
                     db.addProduct(product, this);
-                    db.uploadPicture("product/",product.getName(), imageUri, this);
+                    db.uploadPicture(Product.path,product.getName(), imageUri, this);
+                }else if(name != "product name"){
+                    db.displayPicture(Product.path, name, imageView, this);
                 }else{
                     Toast.makeText(this, "some erorr in data", Toast.LENGTH_SHORT).show();
                     // Toast.makeText(this, name + " " + type + " " + price + " " + detail, Toast.LENGTH_SHORT).show();
