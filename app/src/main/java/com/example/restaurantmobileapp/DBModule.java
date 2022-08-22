@@ -5,13 +5,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -205,25 +208,24 @@ public class DBModule {
         });
     }
 
-    public void displayPicture(String path, String name, Uri imageUri, Context context){
-        storageReference.child("images/"+path).child(name+"jpeg");
-        try{
-            final File file = File.createTempFile("image", "jpeg");
-            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+    public void displayPicture(String path, String name, ImageView imageView, Context context){
+
+        try {
+            final File locFile = File.createTempFile("app_ui", "jpg");
+            storageReference.child(path+name).getFile(locFile).addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful()){
                         Toast.makeText(context, "Success download Image", Toast.LENGTH_SHORT).show();
-                        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                        Bitmap bitmap = BitmapFactory.decodeFile(locFile.getAbsolutePath());
+                        imageView.setImageBitmap(bitmap);
+                    }else{
+                        Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            ).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(context, "Failure download Image", Toast.LENGTH_SHORT).show();
-                }
             });
-
         } catch (IOException e) {
+            Toast.makeText(context, "Catch error", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

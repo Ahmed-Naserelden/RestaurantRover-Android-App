@@ -24,30 +24,34 @@ public class Home extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageReference;
     ImageView imageView;
+    DBModule db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        db = new DBModule();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference().child("images/8afa7801-e6d2-402c-8702-8033e93652dd");
         imageView = findViewById(R.id.imageView4);
-        try {
-            final File locFile = File.createTempFile("app_ui", "jpg");
-            storageReference.getFile(locFile).addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(Home.this, "Success download Image", Toast.LENGTH_SHORT).show();
-                        Bitmap bitmap = BitmapFactory.decodeFile(locFile.getAbsolutePath());
-                        imageView.setImageBitmap(bitmap);
-                    }else{
-                        Toast.makeText(Home.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        } catch (IOException e) {
-            Toast.makeText(Home.this, "Catch error", Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
+       db.displayPicture("images/user/", "ahmed", imageView, this);
+//        try {
+//            final File locFile = File.createTempFile("app_ui", "jpg");
+//            storageReference.getFile(locFile).addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
+//                    if(task.isSuccessful()){
+//                        Toast.makeText(Home.this, "Success download Image", Toast.LENGTH_SHORT).show();
+//                        Bitmap bitmap = BitmapFactory.decodeFile(locFile.getAbsolutePath());
+//                        imageView.setImageBitmap(bitmap);
+//                    }else{
+//                        Toast.makeText(Home.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
+//        } catch (IOException e) {
+//            Toast.makeText(Home.this, "Catch error", Toast.LENGTH_SHORT).show();
+//            e.printStackTrace();
+//        }
+
     }
 }
