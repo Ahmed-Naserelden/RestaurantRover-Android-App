@@ -2,6 +2,8 @@ package com.example.restaurantmobileapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.widget.Toast;
 
@@ -11,20 +13,26 @@ import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 public class DBModule {
+    FirebaseAuth mAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
     private DatabaseReference dbRef;
     public DBModule (){
+        mAuth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference("Restaurant");
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -195,6 +203,33 @@ public class DBModule {
                 }
             }
         });
+    }
+
+    public void displayPicture(String path, String name, Uri imageUri, Context context){
+        storageReference.child("images/"+path).child(name+"jpeg");
+        try{
+            final File file = File.createTempFile("image", "jpeg");
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(context, "Success download Image", Toast.LENGTH_SHORT).show();
+                        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    }
+                }
+            ).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "Failure download Image", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean getCurrentUser(){
+        return false;
     }
 
 }

@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         db = new DBModule();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        startActivity(new Intent(this, Home.class));
 //        goToLogin();
         findViewById(R.id.button).setOnClickListener(this);
         findViewById(R.id.loginBtn).setOnClickListener(this);
@@ -173,6 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, SignUp.class));
                 break;
             case R.id.loginBtn:
+
                 startActivity(new Intent(this, SignIn.class));
                 break;
         }

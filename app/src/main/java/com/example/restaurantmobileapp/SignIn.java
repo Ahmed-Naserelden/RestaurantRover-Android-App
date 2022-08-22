@@ -46,16 +46,18 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         String key = task.getResult().getUser().getUid();
                         if(task.isSuccessful()){
                            // Toast.makeText(SignIn.this, String.format("Successes , %s", key), Toast.LENGTH_SHORT).show();
-                           Intent nIntent;
+                            finish();
+                            Intent nIntent;
                             Toast.makeText(SignIn.this, "email\\ "+email + " pass\\"+password, Toast.LENGTH_SHORT).show();
 
                             if (email.equals("admin@gmail.com") && password.equals("admin12")){
                                nIntent = new Intent(SignIn.this, AdminPage.class);
                            }else {
-                               nIntent = new Intent(SignIn.this, SignUp.class);
+                               nIntent = new Intent(SignIn.this, Home.class);
                            }
                             //intent = new Intent(SignIn.this, AdminPage.class);
                             nIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -83,4 +85,16 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mAuth.getCurrentUser() != null){
+            finish();
+            Toast.makeText(this, mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, Home.class));
+        }
+    }
+
+
 }
