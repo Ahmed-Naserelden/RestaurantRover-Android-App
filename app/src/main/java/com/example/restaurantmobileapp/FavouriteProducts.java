@@ -3,8 +3,10 @@ import java.util.List;
 import java.util.ArrayList;
 public class FavouriteProducts {
     // favourite
-    private List<Product> favouriteProduct = (List<Product>) new ArrayList<Product>();
-
+    private List<Product> favouriteProduct;
+    public FavouriteProducts (){
+        favouriteProduct = (List<Product>) new ArrayList<Product>();
+    }
     public void setFavouriteProduct(List<Product> favouriteProduct) {
         this.favouriteProduct = favouriteProduct;
     }

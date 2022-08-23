@@ -4,15 +4,43 @@ public class User {
     private String name, email;
     private Cart cart; //
     private FavouriteProducts favouriteProducts;
-
-    public User(){}
-    public User(String name, String email, Cart cart, FavouriteProducts favouriteProducts) {
+    private String phone, password;
+    public User(){
+        this.cart = new Cart();
+        this.favouriteProducts =  new FavouriteProducts();
+    }
+    public User(String userId){
+        this.cart = new Cart();
+        this.favouriteProducts =  new FavouriteProducts();
+    }
+    public User(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.cart = new Cart();
+        this.favouriteProducts =  new FavouriteProducts();
+    }
+
+    public User(String name, String email, String phone, Cart cart, FavouriteProducts favouriteProducts) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
         this.cart = cart;
         this.favouriteProducts = favouriteProducts;
     }
-
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
     public String getName() {
         return name;
     }
@@ -37,12 +65,10 @@ public class User {
     public void setFavouriteProducts(FavouriteProducts favouriteProducts) {
         this.favouriteProducts = favouriteProducts;
     }
-
     public void addOrder(Order order){
         this.cart.addOrder(order);
     }
     public void canOrder(Order order){this.cart.canOrder(order);}
-
     public void addFavouriteProduct(Product product){
         this.favouriteProducts.addFavouriteProduct(product);
     }
