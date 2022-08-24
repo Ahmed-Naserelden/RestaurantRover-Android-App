@@ -11,6 +11,10 @@
       android:id="@+id/list_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:layout_marginTop="192dp"
+      android:listSelector="@color/teal_200"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:layout_editor_absoluteX="-41dp"
       tools:listitem="@layout/item_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
