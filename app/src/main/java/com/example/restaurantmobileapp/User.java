@@ -9,10 +9,14 @@ public class User {
         this.cart = new Cart();
         this.favouriteProducts =  new FavouriteProducts();
     }
-    public User(String userId){
+    public User(String userId, String email){
+        this.email = email;
+        this.name = "";
         this.cart = new Cart();
         this.favouriteProducts =  new FavouriteProducts();
     }
+
+
     public User(String name, String email, String phone, String password) {
         this.name = name;
         this.email = email;
@@ -21,7 +25,6 @@ public class User {
         this.cart = new Cart();
         this.favouriteProducts =  new FavouriteProducts();
     }
-
     public User(String name, String email, String phone, Cart cart, FavouriteProducts favouriteProducts) {
         this.name = name;
         this.email = email;

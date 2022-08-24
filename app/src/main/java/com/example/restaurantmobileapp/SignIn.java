@@ -46,10 +46,8 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
                         String key = task.getResult().getUser().getUid();
                         if(task.isSuccessful()){
-                           // Toast.makeText(SignIn.this, String.format("Successes , %s", key), Toast.LENGTH_SHORT).show();
                             finish();
                             Intent nIntent;
                             Toast.makeText(SignIn.this, "email\\ "+email + " pass\\"+password, Toast.LENGTH_SHORT).show();
@@ -62,7 +60,6 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
                             //intent = new Intent(SignIn.this, AdminPage.class);
                             nIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(nIntent);
-
                         }else{
                             Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -96,5 +93,45 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
 //        }
 //    }
 
+
+
+    public void save(View view){
+//        FirebaseDatabase fir = FirebaseDatabase.getInstance();
+//        DatabaseReference ref = fir.getReference();
+//
+        //       DatabaseReference dbref = FirebaseDatabase.getInstance().getReference("Restaurant");
+
+//        DocumentReference mdoc = FirebaseFirestore.getInstance().document("Restaurant/Users");
+        Product p1 = new Product("fish", "sea food", "salt", 18.9f);
+        Product p2 = new Product("milk", "drinks", "safe", 2.9f);
+        Product p3 = new Product("rise", "food", "spice", 5.9f);
+        Product p4 = new Product("water", "drinks", "good", 1.9f);
+
+        Order order1 = new Order();
+        order1.addProduct(p1);order1.addProduct(p2);order1.addProduct(p3);order1.addProduct(p4);
+
+        Order order2 = new Order();
+        order2.addProduct(p1);order2.addProduct(p2);order2.addProduct(p3);order2.addProduct(p4);
+        order2.addProduct(p2);
+
+        Cart cart = new Cart();
+        cart.addOrder(order1);
+        cart.addOrder(order2);
+
+        FavouriteProducts favouriteProducts = new FavouriteProducts();
+        favouriteProducts.addFavouriteProduct(p1);
+        favouriteProducts.addFavouriteProduct(p2);
+
+        String NAME = "Naser eldin Mohamed Amer";
+        String EMAIL = "Naser@gmail.com";
+        String phone = "01003129806";
+
+        User user = new User(NAME, EMAIL, phone, cart, favouriteProducts);
+        user.setPassword("veryStrong");
+        DBModule db = new DBModule();
+        db.addFavoriteProduct(p4, user, this);
+        // db.RemoveFavoriteProduct(p3, user, this);
+
+    }
 
 }

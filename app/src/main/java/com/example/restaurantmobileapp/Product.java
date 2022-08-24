@@ -1,5 +1,4 @@
 package com.example.restaurantmobileapp;
-
 import java.util.HashMap;
 
 public  class Product {
