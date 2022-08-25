@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
@@ -16,11 +17,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.base.MoreObjects;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,7 +38,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.lang.annotation.Documented;
 import java.security.ProtectionDomain;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -41,23 +50,93 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Uri imageUri;
     FirebaseStorage storage;
     StorageReference storageReference;
+    DatabaseReference dbRef;
+    Data data;
+    ArrayList<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = new DBModule();
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+        start();
+        finish();
+        startActivity(new Intent(this, SignIn.class));
 
-        startActivity(new Intent(this, Home.class));
-//        goToLogin();
-        findViewById(R.id.button).setOnClickListener(this);
-        findViewById(R.id.loginBtn).setOnClickListener(this);
-//        findViewById(R.id.button5).setOnClickListener(this);
-        newWork();
+
+
+//        dbRef.child("Products").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot i : snapshot.getChildren()) {
+//                    List<Product> li = (List<Product>) new ArrayList<Product>();
+//                    // TODO: handle the post
+//                    for (DataSnapshot j : i.getChildren()) {
+//                        // TODO: handle the post
+//                        Product product = j.getValue(Product.class);
+//                        li.add(product);
+//                    }
+//                    if(li.isEmpty()){
+//                        Toast.makeText(MainActivity.this, "Empty", Toast.LENGTH_SHORT).show();
+//                    }else {
+//                        Toast.makeText(MainActivity.this, "Not Empty", Toast.LENGTH_SHORT).show();
+//                    }
+//                    // Toast.makeText(MainActivity.this, i.getKey(), Toast.LENGTH_SHORT).show();
+//                    data.addProductList(i.getKey(), li);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Toast.makeText(MainActivity.this, "Faliure", Toast.LENGTH_SHORT).show();
+//            }
+//
+//        });
+        //mCheckInforInServer("Products");
+//        dbRef.child("Products").get().addOnCompleteListener(
+//                new OnCompleteListener<DataSnapshot>() {
+//
+//                    @Override
+//                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            List<Product> li = (List<Product>) new ArrayList<Product>();
+//                            // Toast.makeText(MainActivity.this, task.getResult().getValue().toString(), Toast.LENGTH_SHORT).show();
+//                            for (DataSnapshot i : task.getResult().getChildren()) {
+//                                for (DataSnapshot j : i.getChildren()) {
+//                                    Product product = j.getValue(Product.class);
+//                                    li.add(product);
+//
+//                                }
+//                                if (li.isEmpty()) {
+//                                    Toast.makeText(MainActivity.this, "Empty", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    Toast.makeText(MainActivity.this, "Not Empty", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        } else {
+//                            Toast.makeText(MainActivity.this, "faliur", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
+//        );
+//        fun();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                {
+////                     your code once you get the data
+//                    fun();
+//                }
+//
+//            }
+//        }, 2000);
+//        fun();
+    }
+
+// *******************************IMAGES*********************************
+    public void fun(){
+        Toast.makeText(this, data.getProductData().toString(), Toast.LENGTH_SHORT).show();
 
     }
-// *******************************IMAGES*********************************
     private void newWork(){
         imageView = findViewById(R.id.imageView);
         imageView.setOnClickListener(
@@ -162,7 +241,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         User user = new User(NAME, EMAIL, phone, cart, favouriteProducts);
         user.setPassword("veryStrong");
         DBModule db = new DBModule();
-        db.RemoveFavoriteProduct(p3, user, this);
+        db.addFavoriteProduct(p4, user, this);
+       // db.RemoveFavoriteProduct(p3, user, this);
 
     }
     @Override
@@ -182,5 +262,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //outIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(outIntent);
 
+    }
+
+    private void mCheckInforInServer(String child) {
+        new DBModule().mReadDataOnce(child, new OnGetDataListener() {
+            @Override
+            public void onStart() {
+                //DO SOME THING WHEN START GET DATA HERE
+            }
+
+            @Override
+            public void onSuccess(DataSnapshot data) {
+                //DO SOME THING WHEN GET DATA SUCCESS HERE
+                List<Product> li = (List<Product>) new ArrayList<Product>();
+                // Toast.makeText(MainActivity.this, task.getResult().getValue().toString(), Toast.LENGTH_SHORT).show();
+                for (DataSnapshot i : data.getChildren()) {
+                    for (DataSnapshot j : i.getChildren()) {
+                        Product product = j.getValue(Product.class);
+                        li.add(product);
+                    }
+                    if (li.isEmpty()) {
+                        Toast.makeText(MainActivity.this, "Empty", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Not Empty", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailed(DatabaseError databaseError) {
+                //DO SOME THING WHEN GET DATA FAILED HERE
+            }
+        });
+
+    }
+
+    public void start(){
+        db = new DBModule();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        dbRef = FirebaseDatabase.getInstance().getReference("Restaurant");
+        findViewById(R.id.button).setOnClickListener(this);
+        findViewById(R.id.loginBtn).setOnClickListener(this);
+    }
+
+
+    public void yousef(){
+        data = db.getProductData("Products",this);
+        if(data.getProductData().isEmpty()){
+            Toast.makeText(this, "Empty ..", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "not Empty ...", Toast.LENGTH_SHORT).show();
+        }
     }
 }

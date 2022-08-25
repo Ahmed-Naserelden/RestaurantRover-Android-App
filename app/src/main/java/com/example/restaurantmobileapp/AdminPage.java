@@ -1,11 +1,8 @@
 package com.example.restaurantmobileapp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,19 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.util.UUID;
 
 public class AdminPage extends AppCompatActivity implements View.OnClickListener {
     DBModule db;
@@ -48,7 +36,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.button4:
+            case R.id.fastfood:
                 name = Name.getText().toString();
                 detail = Detail.getText().toString();
                 type = Type.getText().toString();
@@ -77,7 +65,7 @@ public class AdminPage extends AppCompatActivity implements View.OnClickListener
         Detail = findViewById(R.id.textInputEditText);
         Type = findViewById(R.id.editTextTextPersonName3);
         Price = findViewById(R.id.editTextNumberSigned);
-        findViewById(R.id.button4).setOnClickListener(this);
+        findViewById(R.id.fastfood).setOnClickListener(this);
 
         imageView.setOnClickListener(
             new View.OnClickListener() {
