@@ -41,7 +41,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         findViewById(R.id.dessert).setOnClickListener(this);
         invalidateOptionsMenu();
         db = new DBModule();
-        work("cool drink");
+        work("food");
     }
 
     public void work(String type){
@@ -68,10 +68,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 }
                 customAdabter = new CustomBaseAdabter(getApplicationContext(), productArrayList);
                 listView.setAdapter(customAdabter);
-
-
-
-
 
                 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override

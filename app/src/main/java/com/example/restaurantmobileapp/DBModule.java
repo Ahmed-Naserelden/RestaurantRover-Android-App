@@ -325,7 +325,7 @@ public class DBModule {
               @Override
               public void onComplete(@NonNull Task<Void> task) {
                   if(task.isSuccessful()){
-                      Toast.makeText(context, "add Product", Toast.LENGTH_SHORT).show();
+//                      Toast.makeText(context, "add Product", Toast.LENGTH_SHORT).show();
                   }else{
                       Toast.makeText(context, "Not add Product", Toast.LENGTH_SHORT).show();
                   }

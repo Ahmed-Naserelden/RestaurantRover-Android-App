@@ -36,7 +36,6 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Order order = snapshot.getValue(Order.class);
-                Toast.makeText(CartActivity.this, order.getProducts().toString(), Toast.LENGTH_SHORT).show();
                 Map<String, Integer> products = order.getProducts();
 
                 Double totalPrice = order.getTotalPrice();

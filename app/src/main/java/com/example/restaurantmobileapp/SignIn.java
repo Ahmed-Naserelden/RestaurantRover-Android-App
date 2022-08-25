@@ -29,8 +29,6 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_sign_in);
-
-        startActivity(new Intent(this, Home.class));
         Email = findViewById(R.id.loginEmail);
         Password = findViewById(R.id.loginPassword);
         findViewById(R.id.button3).setOnClickListener(this);

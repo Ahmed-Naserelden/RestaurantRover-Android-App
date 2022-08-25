@@ -42,7 +42,6 @@ public class OrderBasedAdabter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-//        Toast.makeText(context, "I'm in View", Toast.LENGTH_SHORT).show();
         view = inflater.inflate(R.layout.cart_item_layout, null);
         TextView textView = view.findViewById(R.id.ProductName);
         TextView price = view.findViewById(R.id.price);
@@ -52,7 +51,7 @@ public class OrderBasedAdabter extends BaseAdapter {
         textView.setText(values.keySet().toArray()[i].toString());
         price.setText(String.format( "%d", values.get(values.keySet().toArray()[i].toString())));
 
-       db.displayPicture(Product.path,values.keySet().toArray()[i].toString(), imageView, context);
+        db.displayPicture(Product.path,values.keySet().toArray()[i].toString(), imageView, context);
         return view;
     }
 
