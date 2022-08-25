@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +29,8 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_sign_in);
+
+        startActivity(new Intent(this, Home.class));
         Email = findViewById(R.id.loginEmail);
         Password = findViewById(R.id.loginPassword);
         findViewById(R.id.button3).setOnClickListener(this);
@@ -43,30 +48,29 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener{
             Password.setError("Password is nor correct");
             Password.requestFocus();
         }else{
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
-                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        String key = task.getResult().getUser().getUid();
-                        if(task.isSuccessful()){
-                            finish();
-                            Intent nIntent;
-                            Toast.makeText(SignIn.this, "email\\ "+email + " pass\\"+password, Toast.LENGTH_SHORT).show();
 
-                            if (email.equals("admin@gmail.com") && password.equals("admin12")){
-                               nIntent = new Intent(SignIn.this, AdminPage.class);
-                           }else {
-                               nIntent = new Intent(SignIn.this, Home.class);
-                           }
-                            //intent = new Intent(SignIn.this, AdminPage.class);
-                            nIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(nIntent);
-                        }else{
-                            Toast.makeText(SignIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+            mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    String key = authResult.getUser().getUid();
+                    finish();
+                    Intent nIntent;
+                    if (email.equals("admin@gmail.com") && password.equals("admin12")) {
+                        nIntent = new Intent(SignIn.this, AdminPage.class);
+                    } else {
+                        nIntent = new Intent(SignIn.this, Home.class);
                     }
+                    nIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(nIntent);
+
                 }
-            );
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SignIn.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
     }
 

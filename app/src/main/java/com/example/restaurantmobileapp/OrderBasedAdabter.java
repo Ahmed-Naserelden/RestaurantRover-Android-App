@@ -27,7 +27,7 @@ public class OrderBasedAdabter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return 0;
+        return values.size();
     }
 
     @Override
@@ -42,17 +42,17 @@ public class OrderBasedAdabter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.item_layout, null);
-        TextView textView = view.findViewById(R.id.personName);
-        TextView price = view.findViewById(R.id.mstime);
-        TextView detail = view.findViewById(R.id.lastMessage);
-        ImageView imageView = view.findViewById(R.id.profile_pic);
+//        Toast.makeText(context, "I'm in View", Toast.LENGTH_SHORT).show();
+        view = inflater.inflate(R.layout.cart_item_layout, null);
+        TextView textView = view.findViewById(R.id.ProductName);
+        TextView price = view.findViewById(R.id.price);
+        TextView detail = view.findViewById(R.id.deltail);
+        ImageView imageView = view.findViewById(R.id.productIcon);
+
         textView.setText(values.keySet().toArray()[i].toString());
         price.setText(String.format( "%d", values.get(values.keySet().toArray()[i].toString())));
-        // db.displayPicture(Product.path,productArrayList.get(productArrayList.keySet().toArray()[i]), imageView, context);
-        db.displayPicture(Product.path,values.keySet().toArray()[i].toString(), imageView, context);
 
-        Toast.makeText(context,values.keySet().toArray()[i].toString() , Toast.LENGTH_SHORT).show();
+       db.displayPicture(Product.path,values.keySet().toArray()[i].toString(), imageView, context);
         return view;
     }
 

@@ -33,7 +33,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         intent = new Intent(this, CartActivity.class);
-        findViewById(R.id.italiano_food).setOnClickListener(this);
+        findViewById(R.id.food).setOnClickListener(this);
         findViewById(R.id.drinks).setOnClickListener(this);
         findViewById(R.id.seafood).setOnClickListener(this);
         findViewById(R.id.fastfood).setOnClickListener(this);
@@ -68,6 +68,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
                 }
                 customAdabter = new CustomBaseAdabter(getApplicationContext(), productArrayList);
                 listView.setAdapter(customAdabter);
+
+
+
+
+
                 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -111,25 +116,11 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    @Override
-    public void onBackPressed() {
 
-//        work();
-        new AlertDialog.Builder(this)
-            .setTitle("Really Exit?")
-            .setMessage("Are you sure you want to exit?")
-            .setNegativeButton(android.R.string.no, null)
-            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                public void onClick(DialogInterface arg0, int arg1) {
-                    Home.super.onBackPressed();
-                }
-            }).create().show();
-    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.italiano_food:
+            case R.id.food:
                 work("food");
                 break;
             case R.id.drinks:
@@ -193,12 +184,21 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.bag:
-                Toast.makeText(this, "I'm Bag", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 return true;
             case R.id.item3:
-                Toast.makeText(this, "I'm item3", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, SignIn.class));
+                new AlertDialog.Builder(this)
+                        .setTitle("Really Exit?")
+                        .setMessage("Are you sure you want to exit?")
+                        .setNegativeButton(android.R.string.no, null)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), SignIn.class));
+                            }
+                        }).create().show();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

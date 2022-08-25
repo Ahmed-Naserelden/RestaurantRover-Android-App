@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,42 +22,33 @@ public class CartActivity extends AppCompatActivity {
     Order order;
     OrderBasedAdabter orderBasedAdabter;
     Map<String, Integer> productArrayList;
+    TextView TotalPrice;
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        listView = findViewById(R.id.list_viewcart);
-
+        listView = findViewById(R.id.list_viewCartItem);
+        TotalPrice = findViewById(R.id.priceval);
         db = new DBModule();
-        db.getDbRef().child("Users/"+db.mAuth.getUid()).addValueEventListener(new ValueEventListener() {
+        db.getDbRef().child("Users/"+db.mAuth.getUid()+"/order").addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user = snapshot.getValue(User.class);
-                Toast.makeText(CartActivity.this, user.getName(), Toast.LENGTH_SHORT).show();
+                Order order = snapshot.getValue(Order.class);
+                Toast.makeText(CartActivity.this, order.getProducts().toString(), Toast.LENGTH_SHORT).show();
+                Map<String, Integer> products = order.getProducts();
+
+                Double totalPrice = order.getTotalPrice();
+                TotalPrice.setText(String.format("%.2f $", totalPrice));
+
+                OrderBasedAdabter orderBasedAdabter = new OrderBasedAdabter(CartActivity.this,products);
+                listView.setAdapter(orderBasedAdabter);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        db.getDbRef().child("Users/"+db.mAuth.getUid()+"/order").addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                order = snapshot.getValue(Order.class);
-                productArrayList= order.getProducts();
-                Toast.makeText(CartActivity.this, String.format("%s",productArrayList.get("water")), Toast.LENGTH_SHORT).show();
-                orderBasedAdabter = new OrderBasedAdabter(CartActivity.this,  productArrayList);
-                listView.setAdapter(orderBasedAdabter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
     }
 }

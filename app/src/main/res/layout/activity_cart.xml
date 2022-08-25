@@ -7,16 +7,47 @@
     tools:context=".CartActivity">
 
     <ListView
-        android:id="@+id/list_viewcart"
+        android:id="@+id/list_viewCartItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
         android:focusable="true"
 
         android:listSelector="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:listitem="@layout/item_layout">
+        tools:listitem="@layout/cart_item_layout">
 
     </ListView>
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="78dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="22dp"
+            android:text="Total Price"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/priceval"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="22dp"
+            android:text="0.0$"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="normal|bold|italic" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
