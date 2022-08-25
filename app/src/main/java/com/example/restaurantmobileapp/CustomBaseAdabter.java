@@ -55,7 +55,7 @@ public class CustomBaseAdabter extends BaseAdapter implements Filterable {
         ImageView imageView = view.findViewById(R.id.profile_pic);
         textView.setText(productArrayList.get(i).getName());
         detail.setText(productArrayList.get(i).getDetail());
-        price.setText(String.format("%.2f",productArrayList.get(i).getPrice()));
+        price.setText(String.format("%.2f $",productArrayList.get(i).getPrice()));
         db.displayPicture(Product.path,productArrayList.get(i).getName(), imageView, context);
         return view;
     }
