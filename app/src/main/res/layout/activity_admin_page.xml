@@ -65,7 +65,7 @@
         tools:layout_editor_absoluteX="-16dp" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/fastfood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="340dp"

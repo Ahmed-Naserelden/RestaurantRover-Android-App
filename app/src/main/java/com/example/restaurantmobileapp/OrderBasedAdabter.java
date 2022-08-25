@@ -1,34 +1,33 @@
 package com.example.restaurantmobileapp;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
+import java.util.Map;
 
-public class customBaseAdabter extends BaseAdapter {
-
-
-    ArrayList<Product> productArrayList;
+public class OrderBasedAdabter extends BaseAdapter {
+    Map<String, Integer> values;
     LayoutInflater inflater;
     Context context;
     DBModule db;
-    public  customBaseAdabter(Context context, ArrayList<Product> productArrayList){
+    public OrderBasedAdabter(Context context, Map<String, Integer> values){
         db = new DBModule();
-        this.productArrayList = productArrayList;
+        this.values = values;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
     }
     @Override
     public int getCount() {
-        return productArrayList.toArray().length;
+        return 0;
     }
 
     @Override
@@ -47,12 +46,14 @@ public class customBaseAdabter extends BaseAdapter {
         TextView textView = view.findViewById(R.id.personName);
         TextView price = view.findViewById(R.id.mstime);
         TextView detail = view.findViewById(R.id.lastMessage);
-
         ImageView imageView = view.findViewById(R.id.profile_pic);
-        textView.setText(productArrayList.get(i).getName());
-        detail.setText(productArrayList.get(i).getDetail());
-        price.setText(String.format("%f",productArrayList.get(i).getPrice()));
-        db.displayPicture(Product.path,productArrayList.get(i).getName(), imageView, context);
+        textView.setText(values.keySet().toArray()[i].toString());
+        price.setText(String.format( "%d", values.get(values.keySet().toArray()[i].toString())));
+        // db.displayPicture(Product.path,productArrayList.get(productArrayList.keySet().toArray()[i]), imageView, context);
+        db.displayPicture(Product.path,values.keySet().toArray()[i].toString(), imageView, context);
+
+        Toast.makeText(context,values.keySet().toArray()[i].toString() , Toast.LENGTH_SHORT).show();
         return view;
     }
+
 }

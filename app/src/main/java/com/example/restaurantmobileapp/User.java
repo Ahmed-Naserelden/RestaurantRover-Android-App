@@ -5,14 +5,17 @@ public class User {
     private Cart cart; //
     private FavouriteProducts favouriteProducts;
     private String phone, password;
+    private Order order;
     public User(){
         this.cart = new Cart();
         this.favouriteProducts =  new FavouriteProducts();
+        order = new Order();
     }
     public User(String userId, String email){
         this.email = email;
         this.name = "";
         this.cart = new Cart();
+        order = new Order();
         this.favouriteProducts =  new FavouriteProducts();
     }
 
@@ -24,6 +27,7 @@ public class User {
         this.password = password;
         this.cart = new Cart();
         this.favouriteProducts =  new FavouriteProducts();
+        order = new Order();
     }
     public User(String name, String email, String phone, Cart cart, FavouriteProducts favouriteProducts) {
         this.name = name;
@@ -77,5 +81,17 @@ public class User {
     }
     public void removeFavouriteProduct(Product product){
         this.favouriteProducts.removeFavouriteProduct(product);
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void addProductToOrder(Product product){
+        this.order.addProduct(product);
     }
 }

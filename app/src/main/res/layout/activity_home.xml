@@ -7,14 +7,89 @@
     android:layout_height="match_parent"
     tools:context=".Home">
 
+  <HorizontalScrollView
+      android:id="@+id/horizontalScrollView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
+
+      <Button
+          android:id="@+id/italiano_food"
+          style="@style/Widget.AppCompat.RatingBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:backgroundTint="@color/home_main_color"
+          android:layout_margin="1dp"
+          android:text="Italiano Food" />
+
+      <Button
+          android:id="@+id/drinks"
+          style="@style/Widget.AppCompat.RatingBar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="1dp"
+          android:layout_weight="1"
+          android:backgroundTint="@color/home_main_color"
+          android:text="Drinks" />
+
+      <Button
+          android:id="@+id/seafood"
+          style="@style/Widget.AppCompat.RatingBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:backgroundTint="@color/home_main_color"
+          android:layout_margin="1dp"
+          android:text="Seafood " />
+
+      <Button
+          android:id="@+id/salad"
+          style="@style/Widget.AppCompat.RatingBar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="1dp"
+          android:layout_weight="1"
+          android:backgroundTint="@color/home_main_color"
+          android:text="Salad" />
+
+      <Button
+          android:id="@+id/fastfood"
+          style="@style/Widget.AppCompat.RatingBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="1dp"
+
+          android:layout_weight="1"
+          android:backgroundTint="@color/home_main_color"
+          android:text="Fast food" />
+
+      <Button
+          android:id="@+id/dessert"
+          android:layout_margin="1dp"
+          style="@style/Widget.AppCompat.RatingBar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:backgroundTint="@color/home_main_color"
+          android:text="Dessert" />
+    </LinearLayout>
+  </HorizontalScrollView>
+
   <ListView
-      android:id="@+id/list_view"
+      android:id="@+id/list_viewcart"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginTop="192dp"
+      android:layout_marginTop="64dp"
       android:listSelector="@color/teal_200"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:layout_editor_absoluteX="-41dp"
+      android:focusable="true"
+      app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+      tools:layout_editor_absoluteX="-16dp"
       tools:listitem="@layout/item_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

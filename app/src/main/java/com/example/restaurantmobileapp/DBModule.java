@@ -241,7 +241,7 @@ public class DBModule {
                 @Override
                 public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(context, "Success download Image", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(context, "Success download Image", Toast.LENGTH_SHORT).show();
                         Bitmap bitmap = BitmapFactory.decodeFile(locFile.getAbsolutePath());
                         imageView.setImageBitmap(bitmap);
                     } else {
@@ -318,5 +318,20 @@ public class DBModule {
     }
 
 
+    public void addProductToOrder(Product product, User user,Context context){
+
+        user.addProductToOrder(product);
+        dbRef.child("Users/"+mAuth.getUid()+"/order").setValue(user.getOrder()).addOnCompleteListener(new OnCompleteListener<Void>() {
+              @Override
+              public void onComplete(@NonNull Task<Void> task) {
+                  if(task.isSuccessful()){
+                      Toast.makeText(context, "add Product", Toast.LENGTH_SHORT).show();
+                  }else{
+                      Toast.makeText(context, "Not add Product", Toast.LENGTH_SHORT).show();
+                  }
+              }
+          }
+        );
+    }
 
 }

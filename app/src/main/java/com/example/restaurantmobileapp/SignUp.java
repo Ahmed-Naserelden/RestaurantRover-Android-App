@@ -55,6 +55,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUp.this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
                             db.addUser(new User(name, email, phone, password), SignUp.this);

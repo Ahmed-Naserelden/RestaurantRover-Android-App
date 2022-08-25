@@ -16,7 +16,8 @@ public  class Product {
         this.name = name;
         this.type = type;
         this.detail = detail;
-        this.price = price;
+//        this.price = price;
+        this.price = (float) (Math.round(price * 100.0) / 100.0);
         this.Id = name;
     }
     public String getId() {

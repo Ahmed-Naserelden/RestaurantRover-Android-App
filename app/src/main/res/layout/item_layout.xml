@@ -33,6 +33,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ali ali"
+                    android:maxLines="1"
+                    android:maxWidth="215dp"
                     android:textColor="@color/black"
                     android:textSize="26sp"
                     android:textStyle="bold"/>
@@ -51,14 +53,18 @@
         </LinearLayout>
 
         <TextView
+
             android:id="@+id/mstime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:text="8:12"
+            android:layout_marginTop="21dp"
 
-            />
+            android:layout_marginRight="9dp"
+            android:padding="15dp"
+            android:text="8:12"
+            android:textSize="18dp" />
 
     </RelativeLayout>
 
